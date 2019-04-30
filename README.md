@@ -1,0 +1,2 @@
+# yopass-cli
+Yopass CLI
