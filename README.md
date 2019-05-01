@@ -13,14 +13,26 @@ yopass-cli requires [python3](https://www.python.org/downloads/)+ to run.
 $ pip install yopass-cli
 ```
 
+Make sure to have the following 2 environment variables set before using:
+ - YOPASS_BACKEND_URL
+ - YOPASS_FRONTEND_URL
+ 
+ Example:
+ 
+ ```sh
+$ export YOPASS_BACKEND_URL=https://api.yopass.se
+$ export YOPASS_FRONTEND_URL=https://yopass.se
+```
+
 ### Todos
 
  - testing
  - proper README
- - package
 
 License
 ----
 MIT
 
 **Free Software, Hell Yeah!**
+
+Contribution is welcome :) 🍺Cheers 🍺
