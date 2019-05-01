@@ -9,6 +9,10 @@ This cli tool uses [sjcl](https://pypi.org/project/sjcl/) (just like the web-fro
 
 yopass-cli requires [python3](https://www.python.org/downloads/)+ to run.
 
+```sh
+$ pip install yopass-cli
+```
+
 ### Todos
 
  - testing
