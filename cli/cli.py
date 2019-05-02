@@ -1,10 +1,10 @@
-from sjcl import SJCL
-import requests
 import json
 import random
 import string
-import click
 import os
+from sjcl import SJCL
+import requests
+import click
 
 
 @click.group()
@@ -18,20 +18,23 @@ def cli():
     type=click.Choice(["verbose", "one-click-link", "short-link", "id"]),
     default="one-click-link",
 )
-@click.option("--outformat", type=click.Choice(["plain", "json"]), default="json")
+@click.option(
+    "--outformat", type=click.Choice(["plain", "json"]), default="json")
 @click.argument("secret", type=click.STRING)
 @click.argument("expiry", type=click.Choice(["1h", "1d", "1w"]))
 def submit(secret, expiry, outmode, outformat):
     backend = os.environ.get("YOPASS_BACKEND_URL")
-    if backend == None:
+    if backend is None:
         click.echo(
-            "YOPASS_BACKEND_URL is not defined, run export YOPASS_BACKEND_URL=<your backend> first"
+            """YOPASS_BACKEND_URL is not defined, run export
+            YOPASS_BACKEND_URL=<your backend> first"""
         )
         exit(1)
     frontend = os.environ.get("YOPASS_FRONTEND_URL")
-    if frontend == None and outmode != "id":
+    if frontend is None and outmode != "id":
         click.echo(
-            "YOPASS_FRONTEND_URL is not defined, run export YOPASS_FRONTEND_URL=<your frontend> first"
+            """YOPASS_FRONTEND_URL is not defined, run export
+            YOPASS_FRONTEND_URL=<your frontend> first"""
         )
         exit(1)
     passphrase = generate_passphrase(15)
@@ -69,7 +72,8 @@ def submit(secret, expiry, outmode, outformat):
 
     secret_id = json.loads(response.text)["message"]
 
-    one_click_link = "{:s}/#/s/{:s}/{:s}".format(frontend, secret_id, passphrase)
+    one_click_link = "{:s}/#/s/{:s}/{:s}".format(
+        frontend, secret_id, passphrase)
     short_link = "{:s}/#/s/{:s}".format(frontend, secret_id)
 
     if outmode == "verbose":
@@ -89,15 +93,15 @@ def submit(secret, expiry, outmode, outformat):
             click.echo(passphrase)
     elif outmode == "short-link":
         if outformat == "json":
-            click.echo(
-                json.dumps({"short-link": short_link, "decryption-key": passphrase})
-            )
+            click.echo(json.dumps(
+                {"short-link": short_link, "decryption-key": passphrase}))
         else:
             click.echo(short_link)
             click.echo(passphrase)
     elif outmode == "id":
         if outformat == "json":
-            click.echo(json.dumps({"id": secret_id, "decryption-key": passphrase}))
+            click.echo(json.dumps(
+                {"id": secret_id, "decryption-key": passphrase}))
         else:
             click.echo(secret_id)
             click.echo(passphrase)
@@ -118,7 +122,7 @@ def submit(secret, expiry, outmode, outformat):
 @click.argument("passphrase", type=click.STRING)
 def retrieve(sid, passphrase, outformat):
     backend = os.environ.get("YOPASS_BACKEND_URL")
-    if backend == None:
+    if backend is None:
         click.echo(
             "YOPASS_BACKEND_URL is not defined, run export YOPASS_BACKEND_URL=<your backend> first"
         )
@@ -142,7 +146,8 @@ def retrieve(sid, passphrase, outformat):
     response_message = response_dict["message"]
     if response_message == "Secret not found":
         click.echo("The requested secret was not found.")
-        click.echo("Please check if you have entered the sid (secret id) properly.")
+        click.echo(
+            "Please check if you have entered the sid (secret id) properly.")
         click.echo("The secret might have expired or got opened previously.")
         exit(1)
 
