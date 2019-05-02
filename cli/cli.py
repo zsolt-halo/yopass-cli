@@ -124,7 +124,8 @@ def retrieve(sid, passphrase, outformat):
     backend = os.environ.get("YOPASS_BACKEND_URL")
     if backend is None:
         click.echo(
-            "YOPASS_BACKEND_URL is not defined, run export YOPASS_BACKEND_URL=<your backend> first"
+            "YOPASS_BACKEND_URL is not defined, "
+            "run export YOPASS_BACKEND_URL=<your backend> first"
         )
         exit(1)
     try:
