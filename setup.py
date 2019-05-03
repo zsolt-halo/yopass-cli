@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="yopass-cli",
-    version="0.0.2",
+    version="0.0.3",
     author="Zsolt Halo",
     author_email="net.zsolt.net@gmail.com",
     description="A cli for interacting with yopass backend",
