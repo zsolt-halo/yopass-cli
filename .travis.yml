@@ -1,11 +1,8 @@
+dist: xenial
 language: python
 python:
 - '2.7'
 - '3.7'
-matrix:
-  include:
-  - python: 3.7
-    dist: xenial
 install:
 - pip install tox-travis
 script:
@@ -18,4 +15,4 @@ deploy:
   on:
     tags: true
     branch: master
-    condition: "$TRAVIS_PYTHON_VERSION == 3.7"
+    python: 3.7
