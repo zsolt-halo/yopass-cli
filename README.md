@@ -1,5 +1,7 @@
 # yopass-cli
 
+[![Build Status](https://travis-ci.org/zsolt-halo/yopass-cli.svg?branch=master)](https://travis-ci.org/zsolt-halo/yopass-cli)
+
 This is a command-line tool to interact with a (the) [yopass backend](https://github.com/jhaals/yopass) created by [Johan Haals](https://github.com/jhaals).
 Even though it is possible to use the service via the [web-frontend](https://yopass.se) I felt the necessity of a cli tool to use this awesome software in our automation projects. 
 
