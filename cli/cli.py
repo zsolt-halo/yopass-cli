@@ -26,7 +26,7 @@ def cli():
     help="Return output in plain text or json format.")
 @click.argument("secret", type=click.STRING)
 @click.argument("expiry", type=click.Choice(["1h", "1d", "1w"]))
-def submit(secret, expiry, outmode, outformat):
+def send(secret, expiry, outmode, outformat):
     """Submit secret to server
 
     """
@@ -127,7 +127,7 @@ def submit(secret, expiry, outmode, outformat):
 )
 @click.argument("sid", type=click.STRING)
 @click.argument("passphrase", type=click.STRING)
-def retrieve(sid, passphrase, outformat):
+def get(sid, passphrase, outformat):
     """Get secret from server
 
     """
