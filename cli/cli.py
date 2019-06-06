@@ -1,15 +1,17 @@
+"""CLI Interface for Yopass server."""
+
 import json
 import random
 import string
 import os
+import click
 from sjcl import SJCL
 import requests
-import click
 
 
 @click.group()
 def cli():
-    pass
+    """CLI Interface for Yopass server."""
 
 
 @cli.command()
@@ -17,12 +19,17 @@ def cli():
     "--outmode",
     type=click.Choice(["verbose", "one-click-link", "short-link", "id"]),
     default="one-click-link",
+    help="Which type of link to return"
 )
 @click.option(
-    "--outformat", type=click.Choice(["plain", "json"]), default="json")
+    "--outformat", type=click.Choice(["plain", "json"]), default="json",
+    help="Return output in plain text or json format.")
 @click.argument("secret", type=click.STRING)
 @click.argument("expiry", type=click.Choice(["1h", "1d", "1w"]))
 def submit(secret, expiry, outmode, outformat):
+    """Submit secret to server
+
+    """
     backend = os.environ.get("YOPASS_BACKEND_URL")
     if backend is None:
         click.echo(
@@ -121,6 +128,9 @@ def submit(secret, expiry, outmode, outformat):
 @click.argument("sid", type=click.STRING)
 @click.argument("passphrase", type=click.STRING)
 def retrieve(sid, passphrase, outformat):
+    """Get secret from server
+
+    """
     backend = os.environ.get("YOPASS_BACKEND_URL")
     if backend is None:
         click.echo(
@@ -163,6 +173,9 @@ def retrieve(sid, passphrase, outformat):
 
 
 def generate_passphrase(length):
+    """Generate passphrase locally.
+
+    """
     result = "".join(
         random.SystemRandom().choice(string.ascii_letters + string.digits)
         for _ in range(length)
