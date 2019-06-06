@@ -115,7 +115,7 @@ def submit(secret, expiry, outmode, outformat):
 @cli.command()
 @click.option(
     "--outformat",
-    type=click.Choice(["plain", "json"], case_sensitive=False),
+    type=click.Choice(["plain", "json"]),
     default="json",
 )
 @click.argument("sid", type=click.STRING)
