@@ -28,11 +28,14 @@ example: `https://yopass.domain.net`
 
 ### Usage
 
-    yopass-cli send [OPTIONS] SECRET EXPIRY
+    yopass-cli send [OPTIONS] SECRET
+    cat <filename> | yopass-cli send [OPTIONS]
+    echo "<my passphrase" | yopass-cli send [OPTIONS]
     yopass-cli get [OPTIONS] SID PASSPHRASE
 
 Send Options:
 
+    --expires [1h|1d|1w]
     --outmode [verbose|one-click-link|short-link|id]
     --outformat [plain|json]
 
