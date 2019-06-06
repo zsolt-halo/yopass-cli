@@ -13,20 +13,32 @@ This cli tool uses [sjcl](https://pypi.org/project/sjcl/) (just like the web-fro
 
 yopass-cli requires [python3](https://www.python.org/downloads/)+ to run.
 
-```sh
-$ pip install yopass-cli
-```
+    $ pip install --user yopass-cli
 
 Make sure to have the following 2 environment variables set before using:
- - YOPASS_BACKEND_URL
- - YOPASS_FRONTEND_URL
+
+- YOPASS_BACKEND_URL
+- YOPASS_FRONTEND_URL
  
- Example:
- 
- ```sh
-$ export YOPASS_BACKEND_URL=https://api.yopass.se
-$ export YOPASS_FRONTEND_URL=https://yopass.se
-```
+        $ export YOPASS_BACKEND_URL=https://api.yopass.se
+        $ export YOPASS_FRONTEND_URL=https://yopass.se
+
+If you use your own server, the front and backend URLs can be the same. For
+example: `https://yopass.domain.net`
+
+### Usage
+
+    yopass-cli send [OPTIONS] SECRET EXPIRY
+    yopass-cli get [OPTIONS] SID PASSPHRASE
+
+Send Options:
+
+    --outmode [verbose|one-click-link|short-link|id]
+    --outformat [plain|json]
+
+Get Options:
+
+    --outformat [plain|json]
 
 ### Todos
 
@@ -35,6 +47,7 @@ $ export YOPASS_FRONTEND_URL=https://yopass.se
 
 License
 ----
+
 MIT
 
 **Free Software, Hell Yeah!**
