@@ -24,10 +24,10 @@ def cli():
 @click.option(
     "--outformat", type=click.Choice(["plain", "json"]), default="json",
     help="Return output in plain text or json format.")
-@click.argument("secret", type=click.STRING)
-@click.argument("expiry", type=click.Choice(["1h", "1d", "1w"]))
-def send(secret, expiry, outmode, outformat):
-    """Submit secret to server
+@click.option("--expires", type=click.Choice(["1h", "1d", "1w"]), default="1h")
+@click.argument("secret", type=click.STRING, default=click.get_text_stream('stdin'))
+def send(secret, expires, outmode, outformat):
+    """Submit secret to server. Optionally pipe secret via stdin.
 
     """
     backend = os.environ.get("YOPASS_BACKEND_URL")
@@ -44,6 +44,11 @@ def send(secret, expiry, outmode, outformat):
             YOPASS_FRONTEND_URL=<your frontend> first"""
         )
         exit(1)
+    try:
+        secret = secret.read()
+    except AttributeError:
+        pass
+
     passphrase = generate_passphrase(15)
     cypherdict = SJCL().encrypt(secret.encode(), passphrase)
     converted_cypherdict = {}
@@ -56,7 +61,7 @@ def send(secret, expiry, outmode, outformat):
 
     expiry_dict = {"1h": 3600, "1d": 86400, "1w": 604800}
     payload = {
-        "expiration": expiry_dict[expiry],
+        "expiration": expiry_dict[expires],
         "secret": json.dumps(converted_cypherdict),
     }
     response = {}
