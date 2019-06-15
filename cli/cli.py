@@ -24,8 +24,10 @@ def cli():
 @click.option(
     "--outformat", "-f", type=click.Choice(["plain", "json"]), default="json",
     help="Return output in plain text or json format.")
-@click.option("--expires", "-e", type=click.Choice(["1h", "1d", "1w"]), default="1h")
-@click.argument("secret", type=click.STRING, default=click.get_text_stream('stdin'))
+@click.option("--expires", "-e",
+              type=click.Choice(["1h", "1d", "1w"]), default="1h")
+@click.argument("secret", type=click.STRING,
+                default=click.get_text_stream('stdin'))
 def send(secret, expires, outmode, outformat):
     """Submit secret to server. Optionally pipe secret via stdin.
 
